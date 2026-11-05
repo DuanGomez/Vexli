@@ -50,4 +50,4 @@ npx vite --port 5320
 
 ---
 
-Hecho por [Duan Gómez](https://duangomez.pages.dev) · [Dcodea](https://dcodea.dcodea-correo.workers.dev)
+Hecho por [Duan Gómez](https://duangomez.pages.dev) · [Dcodea](https://dcodea.pages.dev)

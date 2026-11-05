@@ -218,7 +218,7 @@ export default function Landing() {
       <footer className="foot">
         <span>
           Vexli · hecho en Medellín por{' '}
-          <a href="https://dcodea.dcodea-correo.workers.dev" target="_blank" rel="noopener">
+          <a href="https://dcodea.pages.dev" target="_blank" rel="noopener">
             Dcodea
           </a>
         </span>
