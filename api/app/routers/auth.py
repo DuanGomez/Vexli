@@ -96,8 +96,12 @@ def register(body: Register, db: Session = Depends(get_db)):
 
 @router.post("/auth/demo")
 def demo_login(db: Session = Depends(get_db)):
-    demo.freshen(db)
     u = db.scalar(select(User).where(User.email == demo.DEMO_EMAIL))
+    if u:
+        demo.freshen_later()
+    else:
+        demo.freshen(db)
+        u = db.scalar(select(User).where(User.email == demo.DEMO_EMAIL))
     if not u:
         raise HTTPException(503, "La demo se está preparando. Intenta en unos segundos.")
     return session_payload(u)

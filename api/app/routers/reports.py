@@ -174,8 +174,7 @@ def catalog(slug: str, db: Session = Depends(get_db)):
     if s.is_demo:
         from .. import demo
 
-        demo.freshen(db)
-        s = db.scalar(select(Store).where(Store.slug == slug))
+        demo.freshen_later()
     cats = db.scalars(select(Category).where(Category.store_id == s.id).order_by(Category.position, Category.id)).all()
     prods = db.scalars(select(Product).where(Product.store_id == s.id, Product.active, Product.in_catalog).order_by(Product.name)).all()
     return {

@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      // El servidor gratis se duerme sin visitas: lo despertamos apenas carga la página.
+      try { fetch('https://vexli-api.onrender.com/up', { mode: 'no-cors', cache: 'no-store' }).catch(function () {}); } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

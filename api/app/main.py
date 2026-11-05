@@ -9,15 +9,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from . import demo
-from .db import Base, SessionLocal, engine
+from .db import Base, engine
 from .routers import auth, cash, inventory, reports
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     Base.metadata.create_all(engine)
-    with SessionLocal() as db:
-        demo.freshen(db)
+    demo.freshen_later()
     yield
 
 

@@ -5,6 +5,7 @@ alrededor de la fecha de hoy y nadie la deje en mal estado para el siguiente.
 """
 
 import random
+import threading
 from datetime import timedelta
 
 from sqlalchemy import delete, select
@@ -220,3 +221,25 @@ def reset(db: Session) -> None:
             level -= m.qty
     db.add_all(moves)
     db.commit()
+
+
+_busy = threading.Lock()
+
+
+def freshen_later() -> None:
+    """Regenera la demo en segundo plano: nadie espera a que se rehaga."""
+
+    def run() -> None:
+        if not _busy.acquire(blocking=False):
+            return
+        try:
+            from .db import SessionLocal
+
+            with SessionLocal() as db:
+                freshen(db)
+        except Exception as e:  # la demo vieja sigue sirviendo mientras tanto
+            print("No se pudo regenerar la demo:", e)
+        finally:
+            _busy.release()
+
+    threading.Thread(target=run, daemon=True).start()
